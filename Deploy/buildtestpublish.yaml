@@ -4,7 +4,7 @@ steps:
 # Copy files from a source folder to a target folder using patterns matching file paths (not folder paths)
 - task: CopyFiles@2
   inputs:
-    #sourceFolder: # Optional
+    sourceFolder: 'Deploy'
     #contents: '**' 
     targetFolder: $(Build.ArtifactStagingDirectory)
     #cleanTargetFolder: false # Optional
