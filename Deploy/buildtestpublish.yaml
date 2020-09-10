@@ -6,7 +6,7 @@ steps:
   inputs:
     sourceFolder: 'Deploy/Resources'
     #contents: '**' 
-    targetFolder: $(Build.ArtifactStagingDirectory)
+    targetFolder: $(Build.ArtifactStagingDirectory)/deploy
     #cleanTargetFolder: false # Optional
     overWrite: true # Optional
     #flattenFolders: false # Optional
