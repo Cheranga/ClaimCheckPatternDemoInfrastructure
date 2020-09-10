@@ -22,16 +22,16 @@ variables:
   value: 'windows-latest'
 
 stages:
-- stage: Setup Templates
+- stage: Setup_Templates
   jobs:
-  - job: 'Setup Templates'
+  - job: 'Setup_Templates'
     pool:
       vmImage: ${{variables.vmImage}}
     steps:
     - template: 'publishartifacts.yaml'
 
 - stage: DEV
-  dependsOn: ['Setup Templates']
+  dependsOn: ['Setup_Templates']
   jobs:
   - deployment: DEV
     # variables:
