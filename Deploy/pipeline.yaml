@@ -24,7 +24,7 @@ variables:
 stages:
 - stage: Setup_Templates
   jobs:
-  - job: 'Setup_Templates'
+  - job: 'Setup Templates'
     pool:
       vmImage: ${{variables.vmImage}}
     steps:
