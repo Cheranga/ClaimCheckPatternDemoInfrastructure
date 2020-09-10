@@ -1,4 +1,3 @@
 steps:
--template: 'deployservicebus.yaml'
 
-# Add the other resources which you would like to setup here
+- template: './deployservicebus.yaml'
