@@ -8,7 +8,7 @@ steps:
       resourceGroupName: 'cchatdemorg'
       location: 'Australia Southeast'
       templateLocation: 'Linked artifact'              
-      csmFile: '$(Build.ArtifactStagingDirectory)/drop/ServiceBus/template.json'
+      csmFile: '$(Pipeline.Workspace)/drop/ServiceBus/template.json'
       # csmParametersFile: '$(Build.ArtifactStagingDirectory)/SecureStorage/template.parameters.json'
       # overrideParameters: |
       #   -appName "${{parameters.functionAppName}}"        
