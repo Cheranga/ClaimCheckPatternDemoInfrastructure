@@ -1,30 +1,4 @@
 steps:
-  - task: AzureResourceManagerTemplateDeployment@3    
-    displayName: 'Validating service bus topics and subscription creations'
-    inputs:
-      deploymentScope: 'Resource Group'
-      azureResourceManagerConnection: '$(azureSubscription)'      
-      action: 'Create Or Update Resource Group'
-      resourceGroupName: 'cchatdemorg'
-      location: 'Australia Southeast'
-      templateLocation: 'Linked artifact'              
-      csmFile: '$(Pipeline.Workspace)/drop/ServiceBus/template.json'
-      # csmParametersFile: '$(Build.ArtifactStagingDirectory)/SecureStorage/template.parameters.json'
-      # overrideParameters: |
-      #   -appName "${{parameters.functionAppName}}"        
-      deploymentMode: 'Validation'
+-template: 'deployservicebus.yaml'
 
-  - task: AzureResourceManagerTemplateDeployment@3    
-    displayName: 'Create service bus topics and subscriptions'
-    inputs:
-      deploymentScope: 'Resource Group'
-      azureResourceManagerConnection: '$(azureSubscription)'      
-      action: 'Create Or Update Resource Group'
-      resourceGroupName: 'cchatdemorg'
-      location: 'Australia Southeast'
-      templateLocation: 'Linked artifact'              
-      csmFile: '$(Pipeline.Workspace)/drop/ServiceBus/template.json'
-      # csmParametersFile: '$(Build.ArtifactStagingDirectory)/SecureStorage/template.parameters.json'
-      # overrideParameters: |
-      #   -appName "${{parameters.functionAppName}}"        
-      deploymentMode: 'Incremental'      
+# Add the other resources which you would like to setup here
