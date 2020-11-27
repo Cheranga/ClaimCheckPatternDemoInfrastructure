@@ -64,72 +64,7 @@
                   "Listen"
                 ]
               }
-            },
-            {
-              "apiVersion": "[variables('sbVersion')]",
-              "name": "[parameters('topicDocuments')]",
-              "type": "Topics",
-              "dependsOn": [
-                "[concat('Microsoft.ServiceBus/namespaces/', parameters('serviceBusNamespaceName'))]"
-              ],
-              "properties": {
-                "path": "[parameters('topicDocuments')]"
-              },
-              "resources": [
-                {
-                  "apiVersion": "[variables('sbVersion')]",
-                  "name": "subs-invoices",
-                  "type": "Subscriptions",
-                  "dependsOn": [
-                    "[parameters('topicDocuments')]"
-                  ],
-                  "properties": {},
-                  "resources": [
-                    {
-                      "type": "Rules",
-                      "name": "sub-invoices-filter",
-                      "apiVersion": "2017-04-01",
-                      "properties": {
-                        "action": {},
-                        "filterType": "CorrelationFilter",
-                        "correlationFilter": {
-                          "properties": {
-                            "DocumentType": "Invoice"
-                          }
-                        }
-                      },
-                      "dependsOn": [ "subs-invoices" ]
-                    }
-                  ]
-                },
-                {
-                  "apiVersion": "[variables('sbVersion')]",
-                  "name": "subs-neworders",
-                  "type": "Subscriptions",
-                  "dependsOn": [
-                    "[parameters('topicDocuments')]"
-                  ],
-                  "properties": {},
-                  "resources": [
-                    {
-                      "type": "Rules",
-                      "name": "sub-neworders-filter",
-                      "apiVersion": "2017-04-01",
-                      "properties": {
-                        "action": {},
-                        "filterType": "CorrelationFilter",
-                        "correlationFilter": {
-                          "properties": {
-                            "DocumentType": "NewOrder"
-                          }
-                        }
-                      },
-                      "dependsOn": [ "subs-neworders"]
-                    }
-                  ]
-                }
-              ]
-            }            
+            }                       
           ]
         }
     ],

@@ -15,7 +15,7 @@ steps:
       deploymentMode: 'Validation'
 
   - task: AzureResourceManagerTemplateDeployment@3    
-    displayName: 'Create service bus topics and subscriptions'
+    displayName: 'Create service bus'
     inputs:
       deploymentScope: 'Resource Group'
       azureResourceManagerConnection: '$(azureSubscription)'      
@@ -28,3 +28,18 @@ steps:
       # overrideParameters: |
       #   -appName "${{parameters.functionAppName}}"        
       deploymentMode: 'Incremental'      
+
+  - task: AzureResourceManagerTemplateDeployment@3    
+    displayName: 'Create topic and subscriptions'
+    inputs:
+      deploymentScope: 'Resource Group'
+      azureResourceManagerConnection: '$(azureSubscription)'      
+      action: 'Create Or Update Resource Group'
+      resourceGroupName: 'cchatdemorg'
+      location: 'Australia Southeast'
+      templateLocation: 'Linked artifact'              
+      csmFile: '$(Pipeline.Workspace)/drop/ServiceBus/createtopic.json'
+      # csmParametersFile: '$(Build.ArtifactStagingDirectory)/SecureStorage/template.parameters.json'
+      # overrideParameters: |
+      #   -appName "${{parameters.functionAppName}}"        
+      deploymentMode: 'Incremental'            

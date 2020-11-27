@@ -1,0 +1,86 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "topicDocuments": {
+            "type": "string",
+            "defaultValue": "topic-documents"
+        },
+        "serviceBusNamespaceName": {
+            "type": "string",
+            "defaultValue":"sb-ccpdemo-dev"
+        }
+    },
+    "functions": [],
+    "variables": {
+        "sbVersion": "2017-04-01"
+    },
+    "resources": [
+        {
+              "apiVersion": "[variables('sbVersion')]",
+              "name": "[parameters('topicDocuments')]",
+              "type": "Microsoft.ServiceBus/namespaces/topics",
+              "dependsOn": [
+                "[concat('Microsoft.ServiceBus/namespaces/', parameters('serviceBusNamespaceName'))]"
+              ],
+              "properties": {
+                "path": "[parameters('topicDocuments')]"
+              },
+              "resources": [
+                {
+                  "apiVersion": "[variables('sbVersion')]",
+                  "name": "subs-invoices",
+                  "type": "Subscriptions",
+                  "dependsOn": [
+                    "[parameters('topicDocuments')]"
+                  ],
+                  "properties": {},
+                  "resources": [
+                    {
+                      "type": "Rules",
+                      "name": "sub-invoices-filter",
+                      "apiVersion": "2017-04-01",
+                      "properties": {
+                        "action": {},
+                        "filterType": "CorrelationFilter",
+                        "correlationFilter": {
+                          "properties": {
+                            "DocumentType": "Invoice"
+                          }
+                        }
+                      },
+                      "dependsOn": [ "subs-invoices" ]
+                    }
+                  ]
+                },
+                {
+                  "apiVersion": "[variables('sbVersion')]",
+                  "name": "subs-neworders",
+                  "type": "Subscriptions",
+                  "dependsOn": [
+                    "[parameters('topicDocuments')]"
+                  ],
+                  "properties": {},
+                  "resources": [
+                    {
+                      "type": "Rules",
+                      "name": "sub-neworders-filter",
+                      "apiVersion": "2017-04-01",
+                      "properties": {
+                        "action": {},
+                        "filterType": "CorrelationFilter",
+                        "correlationFilter": {
+                          "properties": {
+                            "DocumentType": "NewOrder"
+                          }
+                        }
+                      },
+                      "dependsOn": [ "subs-neworders"]
+                    }
+                  ]
+                }
+              ]
+            } 
+    ],
+    "outputs": {}
+}
