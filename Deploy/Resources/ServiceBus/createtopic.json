@@ -21,7 +21,8 @@
               "name": "[parameters('topicDocuments')]",
               "type": "Microsoft.ServiceBus/namespaces/topics",              
               "properties": {
-                "path": "[concat('Microsoft.ServiceBus/namespaces/', parameters('serviceBusNamespaceName'))]"
+                // "path": "[concat('Microsoft.ServiceBus/namespaces/', parameters('serviceBusNamespaceName'))]"
+                "path":"[resourceId(subscription().id, resourceGroup().id,'Microsoft.ServiceBus/namespaces/topics', parameters('topicDocuments'))]"
               },
               "resources": [
                 {
